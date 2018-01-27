@@ -8,11 +8,17 @@
   <body>
     <div id='map-screen'>
     </div>
-    <div id='location-list'>
+    <div id='location-list-screen'>
+      <p>Places to visit in Eilat</p>
+      <input id='input-filter' type='text' placeholder='Type here to filter the locations.'>
+      <hr>
+      <ul id='location-list' data-bind="foreach: locations">
+        <li id='location-item' data-bind="text: location">
+      </ul>
     </div>
 
     <script src="js/knockout-3.2.0.js"></script>
-    <script src='js/app.js'></script>
+    <script src="js/app.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjJsRDS5LaBdT4v5Uz54p9BkOCpsll6lg&v=3&callback=loadMap"></script>
   </body>
 </html>

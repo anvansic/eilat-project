@@ -1,8 +1,25 @@
-body {
+html, body {
   height: 100%;
 }
 
-.map-screen {
-  width: 100%;
+#map-screen {
+  position: absolute;
   height: 100%;
+  width: 100%;
+}
+
+#location-list-screen {
+  font-size: 18px;
+  font-family: "Arial", sans-serif;
+  position: absolute;
+  float: left;
+  height: 100%;
+  width: 15%;
+  top: 10%;
+  background-color: white;
+  border: 3px inset #0038B8;
+}
+
+#input-filter {
+  width: 95%;
 }
