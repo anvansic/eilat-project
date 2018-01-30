@@ -23,3 +23,7 @@ html, body {
 #input-filter {
   width: 95%;
 }
+
+#location-list {
+  list-style: none;
+}

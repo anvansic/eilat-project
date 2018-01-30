@@ -10,7 +10,15 @@
     </div>
     <div id='location-list-screen'>
       <p>Places to visit in Eilat</p>
-      <input id='input-filter' type='text' placeholder='Type here to filter the locations.'>
+      <select>
+        <option value='none' selected>No filter</option>
+        <option value='restaurants'>Restaurants</option>
+        <option value='hospitals'>Healthcare</option>
+        <option value='parks'>Parks</option>
+        <option value='museums'>Museums</option>
+        <option value='nightlife'>Nightlife</option>
+        <option value='shopping'>Shopping</option>
+      </select>
       <hr>
       <ul id='location-list' data-bind="foreach: locations">
         <li id='location-item' data-bind="text: location">

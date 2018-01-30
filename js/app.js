@@ -1,7 +1,7 @@
 //This is the model storing the location names. It can only be
 //manipulated with methods within the viewModel.
 var locationModel = [
-  {location: 'list_item_1'},
+  {location: 'Melony Club Hotel'},
   {location: 'list_item_2'},
   {location: 'list_item_3'},
   {location: 'list_item_4'},
