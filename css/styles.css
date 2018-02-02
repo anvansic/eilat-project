@@ -27,3 +27,7 @@ html, body {
 #location-list {
   list-style: none;
 }
+
+#location-item {
+  padding-bottom: 15px;
+}
