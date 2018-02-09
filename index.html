@@ -23,7 +23,7 @@
       </select>
       <hr>
       <ul id='location-list' data-bind="foreach: locations">
-        <li id='location-item' data-bind="text: location">
+        <li id='location-item' data-bind="html: locHtml, click: $parent.chooseLocation">
       </ul>
     </div>
 
