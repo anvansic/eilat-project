@@ -42,30 +42,44 @@ var locationModel = [
 var map;
 var markers = [];
 
-function loadMap() {
-  map = new google.maps.Map(document.getElementById('map-screen'), {
-    center: {lat: 29.557669, lng: 34.951925},
-    zoom: 16
-  });
-
-  //Marker image creation code courtesy of the Google Maps API course.
+function loadMap(data) {
   var regularIcon = markerImage('4286f4');
   var clickedIcon = markerImage('ffffff');
 
-  for(var i=0; i<locationModel.length; i++) {
-    var title = locationModel[i].location;
-    var marker = new google.maps.Marker({
-      position: locationModel[i].coords,
-      title: title,
-      icon: regularIcon,
-      animation: google.maps.Animation.DROP,
-      id: i
+  if(!data) {
+    map = new google.maps.Map(document.getElementById('map-screen'), {
+      center: {lat: 29.557669, lng: 34.951925},
+      zoom: 16
     });
-    markers.push(marker);
-  }
 
-  for(var i=0; i<markers.length; i++) {
-    markers[i].setMap(map);
+    for(var i=0; i<locationModel.length; i++) {
+      var title = locationModel[i].location;
+      var marker = new google.maps.Marker({
+        position: locationModel[i].coords,
+        title: title,
+        icon: regularIcon,
+        animation: google.maps.Animation.DROP,
+        id: i
+      });
+      markers.push(marker);
+
+      marker.addListener('click', function() {
+        loadMap(this.title);
+      });
+    }
+
+    for(var i=0; i<markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  } else {
+    console.log(data);
+    for(var i=0; i<markers.length; i++) {
+      if(markers[i].title === data) {
+        markers[i].setIcon(clickedIcon);
+      } else {
+        markers[i].setIcon(regularIcon);
+      }
+    }
   }
 
   //This function generates the marker images; since markers are handled entirely
@@ -101,6 +115,7 @@ function viewModel() {
         //TODO: Get the corresponding marker to 'light up'.
         //For this, I'll need to refer to the Google Maps course
         //project stored on Magda...
+        loadMap(this.location);
 
       } else {
         self.locations()[i].locHtml(self.locations()[i].location);
