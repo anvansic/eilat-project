@@ -72,7 +72,6 @@ function loadMap(data) {
       markers[i].setMap(map);
     }
   } else {
-    console.log(data);
     for(var i=0; i<markers.length; i++) {
       if(markers[i].title === data) {
         markers[i].setIcon(clickedIcon);

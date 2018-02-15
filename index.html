@@ -9,7 +9,7 @@
   <body>
     <div id='map-screen'>
     </div>
-    <div id='location-list-screen'>
+    <div id='location-list-with-filter'>
       <p>Places to visit in Eilat</p>
       <select>
         <option value='none' selected>No filter</option>
@@ -22,9 +22,11 @@
         <option value='hotels'>Hotels</option>
       </select>
       <hr>
-      <ul id='location-list' data-bind="foreach: locations">
-        <li id='location-item' data-bind="html: locHtml, click: $parent.chooseLocation">
-      </ul>
+      <scroll-container id='location-list-screen'>
+        <ul id='location-list' data-bind="foreach: locations">
+          <li id='location-item' data-bind="html: locHtml, click: $parent.chooseLocation">
+        </ul>
+      </scroll-container>
     </div>
 
     <script src="js/knockout-3.2.0.js"></script>
