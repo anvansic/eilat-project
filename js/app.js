@@ -41,6 +41,7 @@ var locationModel = [
 //loadMap() function is run.
 var map;
 var markers = [];
+var infoWindow;
 
 function loadMap(data) {
   var regularIcon = markerImage('4286f4');
@@ -51,6 +52,8 @@ function loadMap(data) {
       center: {lat: 29.557669, lng: 34.951925},
       zoom: 16
     });
+
+    infoWindow = new google.maps.InfoWindow();
 
     for(var i=0; i<locationModel.length; i++) {
       var title = locationModel[i].location;
@@ -64,6 +67,7 @@ function loadMap(data) {
       markers.push(marker);
 
       marker.addListener('click', function() {
+        displayInfoWindow(this, infoWindow);
         loadMap(this.title);
       });
     }
@@ -75,6 +79,7 @@ function loadMap(data) {
     for(var i=0; i<markers.length; i++) {
       if(markers[i].title === data) {
         markers[i].setIcon(clickedIcon);
+        displayInfoWindow(markers[i], infoWindow);
       } else {
         markers[i].setIcon(regularIcon);
       }
@@ -93,6 +98,17 @@ function loadMap(data) {
       new google.maps.Size(21, 34));
       return markerImage;
   }
+
+  function displayInfoWindow(marker, infoWindow) {
+    if(infoWindow.marker != marker) {
+      infoWindow.marker = marker;
+      infoWindow.setContent('<div>'+marker.title+'</div>');
+      infoWindow.open(map, marker);
+      infoWindow.addListener('closeclick', function() {
+        infoWindow.close();
+      });
+    }
+  }
 }
 
 //In this section, the viewModel implemented with Knockout defines
@@ -110,12 +126,7 @@ function viewModel() {
     for(var i=0; i<self.locations().length; i++) {
       if(self.locations()[i].location == this.location) {
         self.locations()[i].locHtml('<b>'+this.location+'</b>');
-
-        //TODO: Get the corresponding marker to 'light up'.
-        //For this, I'll need to refer to the Google Maps course
-        //project stored on Magda...
         loadMap(this.location);
-
       } else {
         self.locations()[i].locHtml(self.locations()[i].location);
       }
