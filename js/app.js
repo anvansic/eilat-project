@@ -27,7 +27,7 @@ var locationModel = [
   //shopping
   {location: 'Rekhter Shopping Center', locHtml: ko.observable('Rekhter Shopping Center'), type: 'shopping', coords: {lat: 29.5550952, lng: 34.9523272}},
   {location: 'Mall Hayam Eilat', locHtml: ko.observable('Mall Hayam Eilat'), type: 'shopping', coords: {lat: 29.5497876, lng: 34.9539158}},
-  {location: 'Ofer Queen of Sheba Mall', locHtml: ko.observable('Ofer Queen of Sheba Mall'), type: 'shopping', coords: {lat: 29.550351, lng: 34.9609273}},
+  {location: 'Ofer Queen of Sheba', locHtml: ko.observable('Ofer Queen of Sheba'), type: 'shopping', coords: {lat: 29.550351, lng: 34.9609273}},
   {location: 'Ice Mall', locHtml: ko.observable('Ice Mall'), type: 'shopping', coords: {lat: 29.554109, lng: 34.965603}},
   //hotels
   {location: 'Queen of Sheba Eilat', locHtml: ko.observable('Queen of Sheba Eilat'), type: 'hotel', coords: {lat: 29.5503482, lng: 34.9615659}},
@@ -99,13 +99,39 @@ function loadMap(data) {
       return markerImage;
   }
 
+  //This function handles the retrieval of information from the 3rd-party API
+  //and then displays the result in an infoWindow.
+  //All photos have been retrieved from Flickr.
   function displayInfoWindow(marker, infoWindow) {
     if(infoWindow.marker != marker) {
+      var responsePhotoUrl = 'void';
+      $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e826d1dca903c7192ddf891924750b88&jsoncallback=?',
+        {text: `"`+marker.title+`"`,
+         format: "json",
+         sort: "relevance"})
+      .done(function(response) {
+        if(response.photos.photo.length == 0) {
+          infoWindow.setContent("<div>"+marker.title+"</div>"+
+                                "<div>(No image found)</div>");
+        } else {
+          responsePhotoUrl = "https://farm"+response.photos.photo[0].farm+
+                             ".staticflickr.com/"+response.photos.photo[0].server+
+                             "/"+response.photos.photo[0].id+
+                             "_"+response.photos.photo[0].secret+".jpg";
+          infoWindow.setContent("<div>"+marker.title+"</div>"+
+                                "<div><img src="+responsePhotoUrl+" alt='Flickr Img Here'>");
+        }
+
+      })
+      .fail(function(e) {
+        console.log(e);
+        infoWindow.setContent("<div>"+marker.title+"</div>"+
+                              "<div>Photo request failed.</div>");
+      });
       infoWindow.marker = marker;
-      infoWindow.setContent('<div>'+marker.title+'</div>');
       infoWindow.open(map, marker);
       infoWindow.addListener('closeclick', function() {
-        infoWindow.close();
+      infoWindow.close();
       });
     }
   }
