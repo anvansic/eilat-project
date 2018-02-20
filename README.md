@@ -26,7 +26,9 @@ the application from working properly.
 Upon running the application, a Google Maps map of Eilat, Israel will be visible.
 A series of 27 location markers will be displayed. To select a marker, click on it
 or its corresponding name on the leftmost menu. Upon doing so, the name of the location
-and an image of it (or an image closely related to its function) will display.
+and an image of it (or an image closely related to its function) will display. The
+photo is sourced from Flickr using the location name as the search criterion; if no
+image can be found, a message to this effect will display in the InfoWindow.
 
 The locations can be filtered by their respective categories by using the dropdown on
 the leftmost menu.

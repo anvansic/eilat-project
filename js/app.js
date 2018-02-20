@@ -61,10 +61,16 @@ function loadMap(data) {
   var clickedIcon = markerImage('ffffff');
 
   if(!data) {
-    map = new google.maps.Map(document.getElementById('map-screen'), {
-      center: {lat: 29.556314, lng: 34.940846},
-      zoom: 15
-    });
+    try {
+      map = new google.maps.Map(document.getElementById('map-screen'), {
+        center: {lat: 29.556314, lng: 34.940846},
+        zoom: 15
+      });
+    }
+    catch(error) {
+      document.getElementById('map-screen').innerHtml = "<p>Was unable to load "+
+      "Google Maps. Check your Internet connection and firewall settings.";
+    }
 
     infoWindow = new google.maps.InfoWindow();
     makeMarkers(locationModel);

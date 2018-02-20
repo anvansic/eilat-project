@@ -18,6 +18,7 @@ html, body {
   top: 10%;
   background-color: white;
   border: 3px inset #0038B8;
+  overflow-y: scroll;
 }
 
 #input-filter {
@@ -37,4 +38,18 @@ html, body {
   overflow-y: scroll;
   scroll-behavior: smooth;
   height: inherit;
+}
+
+@media only screen and (max-width: 450px) {
+  #location-list-with-filter {
+    width: 33%;
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 451px) and (max-width: 770px) {
+  #location-list-with-filter {
+    width: 33%;
+    font-size: 16px;
+  }
 }
