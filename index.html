@@ -12,16 +12,7 @@
     </div>
     <div id='location-list-with-filter'>
       <p>Places to visit in Eilat</p>
-      <select>
-        <option value='none' selected>No filter</option>
-        <option value='restaurants'>Restaurants</option>
-        <option value='hospitals'>Healthcare</option>
-        <option value='parks'>Parks</option>
-        <option value='museums'>Museums</option>
-        <option value='synagogues'>Synagogues</option>
-        <option value='shopping'>Shopping</option>
-        <option value='hotels'>Hotels</option>
-      </select>
+        <select data-bind='options: filterOptions, value: selectedFilter'></select>
       <hr>
       <scroll-container id='location-list-screen'>
         <ul id='location-list' data-bind="foreach: locations">
