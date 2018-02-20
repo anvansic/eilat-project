@@ -83,7 +83,7 @@ function loadMap(data) {
     makeMarkers(data);
 
   } else {
-    for(var i=0; i<markers.length; i++) {
+    for(i=0; i<markers.length; i++) {
       if(markers[i].title === data) {
         markers[i].setIcon(clickedIcon);
         displayInfoWindow(markers[i], infoWindow);
@@ -118,15 +118,17 @@ function loadMap(data) {
       });
       markers.push(marker);
 
-      marker.addListener('click', function() {
-        displayInfoWindow(this, infoWindow);
-        loadMap(this.title);
-      });
+      marker.addListener('click', addListenerToMarker);
     }
 
-    for(var i=0; i<markers.length; i++) {
+    for(i=0; i<markers.length; i++) {
       markers[i].setMap(map);
     }
+  }
+
+  function addListenerToMarker() {
+    displayInfoWindow(this, infoWindow);
+    loadMap(this.title);
   }
 
   //This function handles the retrieval of information from the 3rd-party API
@@ -140,7 +142,7 @@ function loadMap(data) {
          format: "json",
          sort: "relevance"})
       .done(function(response) {
-        if(response.photos.photo.length == 0) {
+        if(response.photos.photo.length === 0) {
           infoWindow.setContent("<div>"+marker.title+"</div>"+
                                 "<div>(No image found)</div>");
         } else {
@@ -208,7 +210,7 @@ function viewModel() {
         self.locations()[i].locHtml(self.locations()[i].location);
       }
     }
-  }
+  };
 }
 
 ko.applyBindings(new viewModel());
