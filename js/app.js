@@ -83,12 +83,12 @@ function loadMap(data) {
     makeMarkers(data);
 
   } else {
-    for(i=0; i<markers.length; i++) {
-      if(markers[i].title === data) {
-        markers[i].setIcon(clickedIcon);
-        displayInfoWindow(markers[i], infoWindow);
+    for(var j=0; j<markers.length; j++) {
+      if(markers[j].title === data) {
+        markers[j].setIcon(clickedIcon);
+        displayInfoWindow(markers[j], infoWindow);
       } else {
-        markers[i].setIcon(regularIcon);
+        markers[j].setIcon(regularIcon);
       }
     }
   }
@@ -121,8 +121,8 @@ function loadMap(data) {
       marker.addListener('click', addListenerToMarker);
     }
 
-    for(i=0; i<markers.length; i++) {
-      markers[i].setMap(map);
+    for(j=0; j<markers.length; j++) {
+      markers[j].setMap(map);
     }
   }
 
