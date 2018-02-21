@@ -169,10 +169,16 @@ function loadMap(data) {
   }
 }
 
+function runFailedLoadMessage(error) {
+  document.getElementById('map-screen').innerHTML = "<p>Map failed to load. Check to see if your "+
+  "firewall is blocking Google. If the problem continues, try another up-to-date browser, or reinstall "+
+  "the application.</p>";
+}
+
 //In this section, the viewModel implemented with Knockout defines
 //methods facilitating data access and manipulation between the view
 //HTML and the locationModel.
-function viewModel() {
+function ViewModel() {
   var self = this;
 
   self.locations = ko.observableArray(filteredLocations);
@@ -191,7 +197,7 @@ function viewModel() {
 
     //All location items revert to regular (i.e. non-bold) font each time a
     //filter is applied.
-    for(i=0; i<self.locations().length; i++) {
+    for(var i=0; i<self.locations().length; i++) {
       self.locations()[i].locHtml(self.locations()[i].location);
     }
 
@@ -213,4 +219,4 @@ function viewModel() {
   };
 }
 
-ko.applyBindings(new viewModel());
+ko.applyBindings(new ViewModel());
